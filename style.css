@@ -1,0 +1,38 @@
+body{
+    background:#ffffef;
+
+}
+#edge{
+    width:200px;
+    height:200px;
+    border:1px solid #3377af;
+    padding:5px;
+}
+.box{
+
+    width:40px;
+    height:40px;
+    border:1px solid #a82244;
+}
+.dot {
+    height: 25px;
+    width: 25px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+}
+#b1{
+    background-color: #f8a2a4;
+}
+
+#b2{
+    background-color: #a2f8a4;
+}
+
+#b3{
+    background-color: #5599fd;;
+}
+
+.invisible{
+    display: none;
+}
