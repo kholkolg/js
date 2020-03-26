@@ -1,8 +1,11 @@
 //always working
 $(function animate() {
-        console.log("in function");
-        $("#box").animate({
-            marginLeft: "90%"
+    console.log("in function");
+	$("#box").click(function(){
+		respawn();
+		}); 
+    $("#box").animate({
+		marginLeft: "90%"
         }, {
             duration: 10000,
             easing: "linear",
@@ -12,17 +15,35 @@ $(function animate() {
             }
         });
 });
+
 function gameover(){
 	console.log("function complete");
     document.getElementById("box").className="invisible";
     console.log("GAME OVER!");
 };
 
-//hide box when clicked
-function hide(){
-    console.log("box clicked");
-	document.getElementById("box").className="invisible";
-	document.getElementById("box").style.marginLeft = "10%";
-    
+function respawn(){
+	console.log("stop animation");
+     $("#box").stop();
+	console.log("restart animate");
+	document.getElementById("box").style.marginLeft = "0px"
+	 $("#box").animate({
+            marginLeft: "90%"
+        }, {
+            duration: 10000,
+            easing: "linear",
+            complete: function () {
+				// 
+				gameover();
+            }
+        });
 }
+
+
+//hide box when clicked
+//function hide(){
+//$("#box").stop();
+	//document.getElementById("box").break();
+	//document.getElementById("box").className="invisible";
+//;}
 
