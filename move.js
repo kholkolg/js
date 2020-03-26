@@ -7,17 +7,10 @@ $(function animate() {
             duration: 10000,
             easing: "linear",
             complete: function () {
-                $("#box").animate({
-                    marginLeft: "10%",
-                    marginRight: "90%"
-                }, {
-                    duration: 10000,
-                    easing: "linear",
-                    complete: function () {
-                        //continue moving
-                        animate();
-                    }
-                });
+				// 
+				console.log("function complete");
+                document.getElementById("box").className="invisible";
+				console.log("GAME OVER!");
             }
         });
 });
@@ -26,6 +19,8 @@ $(function animate() {
 //hide box when clicked
 function hide(){
     console.log("box clicked");
-    document.getElementById("box").className="invisible";
+	document.getElementById("box").className="invisible";
+	document.getElementById("box").style.marginLeft = "10%";
+    
 }
 
