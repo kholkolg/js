@@ -10,7 +10,6 @@ $(function animate() {
             duration: 10000,
             easing: "linear",
             complete: function () {
-				// 
 				gameover();
             }
         });
