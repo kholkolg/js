@@ -8,13 +8,15 @@ $(function animate() {
             easing: "linear",
             complete: function () {
 				// 
-				console.log("function complete");
-                document.getElementById("box").className="invisible";
-				console.log("GAME OVER!");
+				gameover();
             }
         });
 });
-
+function gameover(){
+	console.log("function complete");
+    document.getElementById("box").className="invisible";
+    console.log("GAME OVER!");
+};
 
 //hide box when clicked
 function hide(){
