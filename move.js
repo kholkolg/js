@@ -78,13 +78,12 @@ function getDuration(){
 
 
 function respawn(){
-	console.log('respawn '+evt);
 	//stop animation, make monster invisible
 	document.getElementById("box").className="dead";
 	$("#box").stop();
-	currentScore = (currentScore + 1);
+	currentScore += 1;//???
 	
-	//update score
+	
 	document.getElementById('currentScore').innerHTML = '<ul>' + currentScore + '</ul>';
 	console.log("moster is killed, score "+currentScore);
 	
@@ -105,7 +104,7 @@ function respawn(){
 
 
 
-
+// 
 // file selection to choose monster image
 function handleFileSelect(evt) {
 	 // FileList object
