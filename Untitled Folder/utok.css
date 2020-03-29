@@ -1,0 +1,25 @@
+
+body{
+  background:#ffffef;
+  
+}
+#edge{
+  width:500px;
+  height:200px;
+  border:1px solid #3377af;
+  padding:5px;
+}
+.box{
+  position:absolute;
+  left:10;
+  width:40px;
+  height:40px;
+  border:1px solid #a82244;
+}
+.dot {
+  height: 25px;
+  width: 25px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+}

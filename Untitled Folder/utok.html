@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="move.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body>
+<button id="btn">Animate height & width</button>
+
+<div id="box" style="background:#98bf21;height:100px;width:100px;margin:6px;"></div>
+</body>
+</html>
+<script>
+    $(document).ready(function(){
+        $("#btn").click(function(){
+            $("#box").animate({
+                marginLeft: "30%"
+            }, {
+                duration: 5000,
+                easing: "linear",
+                complete: function(){
+                    $(this).after("<p>Animation is complete!</p>");
+                }
+            });
+        });
+    });
+</script>

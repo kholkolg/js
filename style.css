@@ -13,6 +13,7 @@ body{
     width:40px;
     height:40px;
     border:1px solid #a82244;
+	display:none;
 }
 .dot {
     height: 25px;
@@ -32,8 +33,9 @@ body{
 #b3{
     background-color: #5599fd;;
 }
-
-.invisible{
+.alive{
+    
+}
+.dead{
     display: none;
-	
 }

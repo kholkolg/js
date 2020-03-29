@@ -6,13 +6,22 @@
     <link rel="stylesheet" href="style.css" />
     <script src="jquery.min.js"></script>
     <script src="move.js"></script>
+	
+
 
 </head>
 <body>
 
 
-<div id="box" style="background:#98bf21;height:100px;width:100px;margin:6px;"></div>
-
+<div id="box" style="background:#98bf21;height:100px;width:100px;margin:6px;dead"></div>
+	
+<br/>
+<input type="button" id="btnStart" onclick=newGame() value="New game" />
+<input type="button" id="btnStop" onclick=stopGame() value="  ||  " />
+<output id="currentScore"></output>
+<br/>
+<input type="file" id="files" name="files[]" multiple />
+<output id="list"></output>
 </body>
 </html>
 <script>
