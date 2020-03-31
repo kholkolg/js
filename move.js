@@ -53,19 +53,21 @@ function newGame() {
 	// independent start by id with different speed
 	document.getElementById('currentScore').innerHTML = '<ul>' + currentScore + '</ul>';
 	//start animation
-    $(".dot").animate({
-		marginLeft: "90%"
-        }, {
-            duration: getDuration(),
-            easing: "linear",
-            complete: function () {
-				gameover();
-            }
-        });
+	var dots = document.getElementsByClassName("dot");
+	console.log("num dots: " + dots.length);
+	for (i = 0; i < dots.length; i++) {
+		console.log(dots[i]);
+		dots[i].style.marginLeft = "0px";
+		animateMonster(dots[i]);
+
+	} 
+	
+
 }
 
 
 function stopGame(){ 
+	//TODO add two states pressed-unpressed to pause-unpause the game
 	console.log('stopGame');
 	$(".dot").stop();
 	//var box = document.getElementById("box").className="dead";
@@ -84,9 +86,24 @@ function gameover(){
 }
 
 function getDuration(){
-	var dur = Math.round(10000*Math.random());
+	var dur = Math.round(40000*Math.random());
 	console.log("duration: " + dur);
 	return dur;
+}
+
+function animateMonster(monster){
+	var speed = getDuration();
+	console.log('animateMonster ', monster);
+
+	$(monster).animate({
+		marginLeft: "90%"
+        }, {
+            duration: getDuration(),
+            easing: "linear",
+            complete: function () {
+				gameover();
+            }
+        });
 }
 
 
@@ -96,48 +113,36 @@ function respawn(monster){
 	//monster.className="dead";
 	$(monster).stop()
 	//$("#box").stop();
-	currentScore += 1;//???
+	currentScore += 1;//??? it's incremented not by one, but by num of game after page reload
 	
 	
 	document.getElementById('currentScore').innerHTML = '<ul>' + currentScore + '</ul>';
 	console.log("moster is killed, score "+currentScore);
 	
-	console.log("restart animation");
+
+
 	document.getElementById(monster).style.marginLeft = "0px"
+	console.log("restart animation ", monster);
+	animateMonster(monster);
+	
 	//document.getElementById(monster).className="alive";
 	// $("#dot")
-	$(monster).animate({
-            marginLeft: "90%"
-        }, {
-            duration: getDuration(),
-            easing: "linear",
-            complete: function () {
-				// 
-				gameover();
-            }
-        });
+//	$(monster).animate({
+ //           marginLeft: "90%"
+ //       }, {
+ //           duration: getDuration(),
+ //           easing: "linear",
+ //           complete: function () {
+//				// 
+//				gameover();
+ //           }
+ //       });
 }
-
-
-
-// 
-// file selection to choose monster image
-function handleFileSelect(evt) {
-	 // FileList object
-	console.log("file selector");
-    var files  = evt.target.files;
-	for (var i = 0, f; f = files[i]; i++) {
-         mImages.push(f.name);
-    }
-	console.log(mImages);
-    document.getElementById('files').addEventListener('change', handleFileSelect, false);
-
-}
-
 
 
 function readURL(input){
    console.log("readUrl");
+	// FIXME dot class 
    document.getElementById("box").className="dead";
    document.getElementById("box").id="deadMonster";
    var image = document.getElementById("monster");
@@ -156,6 +161,9 @@ function readURL(input){
 
 }
 
+// Not used, should be calle in new game or animate
+// depending on if monster is chosen once for the whole game
+// or at each respawn
 function chooseMonsterImg(){
 	//filter images
 	//var files = document.getElementById("files");

@@ -6,27 +6,30 @@
     <link rel="stylesheet" href="style.css" />
     <script src="jquery.min.js"></script>
     <script src="move.js"></script>
-	
-
-
 </head>
+	
 <body>
-<div id="screen">
+	<div id="screen">
 
-<div class="dot" id="dot1" >
-<div>
-    <img id="monster1"/>
-</div>
-	</div>
-<div class="dot" id="dot2" >
+		<div class="dot" id="dot1" >
+			<div>
+				<img id="monster1"/>
+			</div>
+		</div>
+		<div class="dot" id="dot2" >
+			<div>
+				<img id="monster2"/>
+			</div>
+		</div>
+		<div class="dot" id="dot3" >
+			<div>
+				<img id="monster3"/>
+			</div>
+		</div>
 
-<div>
-    <img id="monster2"/>
-</div>	</div>
-
-<input type="button" id="btnStart" onclick=newGame() value="New game" />
-<input type="button" id="btnStop" onclick=stopGame() value="  ||  " />
-<output id="currentScore"></output>
+		<input type="button" id="btnStart" onclick=newGame() value="New game" />
+		<input type="button" id="btnStop" onclick=stopGame() value="  ||  " />
+		<output id="currentScore"></output>
 	</div>
 <input type="file" id="files" name="files[]" onchange="readURL(this)"  multiple />
 <output id="list"></output>
