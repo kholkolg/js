@@ -49,7 +49,8 @@ function newGame() {
 //	document.getElementById("dot").style.marginLeft = "0px"
   //  document.getElementById("dot").className="alive";
 
-	// listener??
+	// scores??
+	// independent start by id with different speed
 	document.getElementById('currentScore').innerHTML = '<ul>' + currentScore + '</ul>';
 	//start animation
     $(".dot").animate({
@@ -92,8 +93,8 @@ function getDuration(){
 function respawn(monster){
 	console.log("respawn " +monster);
 	//stop animation, make monster invisible
-	monster.className="dead";
-	monster.stop()
+	//monster.className="dead";
+	$(monster).stop()
 	//$("#box").stop();
 	currentScore += 1;//???
 	
@@ -102,10 +103,10 @@ function respawn(monster){
 	console.log("moster is killed, score "+currentScore);
 	
 	console.log("restart animation");
-	monster.style.marginLeft = "0px"
-	monster.className="alive";
+	document.getElementById(monster).style.marginLeft = "0px"
+	//document.getElementById(monster).className="alive";
 	// $("#dot")
-	monster.animate({
+	$(monster).animate({
             marginLeft: "90%"
         }, {
             duration: getDuration(),
