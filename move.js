@@ -27,20 +27,32 @@ function newGame() {
 	//shows monster at it's start position, and starts animation
     console.log("new game started");
 	currentScore = 0;
-	var mImg = chooseMonsterImg();
-	console.log("chosen monster: "+mImg);
-
+	//var mImg = chooseMonsterImg();
+	//console.log("chosen monster: "+mImg);
+	
+	
+//	var dots = document.getElementsByClassName("dot");
+//	console.log("num dots: " + dots.length);
+//	for (i = 0; i < dots.length; i++) {
+//		console.log(dots[i]);
+//  		dots[i].style.marginLeft = "0px";
+	//	dots[i].className ="alive";
+//	} 
+	
+	
 	//function that respawns monster at start location when it's clicked
-	$("#box").click(function(){
-		respawn();
+	$(".dot").click(function(){
+		console.log("click dot");
+		respawn(this.id);
 		}); 
 	//make it visible at initial location
-	document.getElementById("box").style.marginLeft = "0px"
-    document.getElementById("box").className="alive";
+//	document.getElementById("dot").style.marginLeft = "0px"
+  //  document.getElementById("dot").className="alive";
+
 	// listener??
 	document.getElementById('currentScore').innerHTML = '<ul>' + currentScore + '</ul>';
 	//start animation
-    $("#box").animate({
+    $(".dot").animate({
 		marginLeft: "90%"
         }, {
             duration: getDuration(),
@@ -54,8 +66,8 @@ function newGame() {
 
 function stopGame(){ 
 	console.log('stopGame');
-	$("#box").stop();
-	var box = document.getElementById("box").className="dead";
+	$(".dot").stop();
+	//var box = document.getElementById("box").className="dead";
 	
 
 }
@@ -77,10 +89,12 @@ function getDuration(){
 }
 
 
-function respawn(){
+function respawn(monster){
+	console.log("respawn " +monster);
 	//stop animation, make monster invisible
-	document.getElementById("box").className="dead";
-	$("#box").stop();
+	monster.className="dead";
+	monster.stop()
+	//$("#box").stop();
 	currentScore += 1;//???
 	
 	
@@ -88,9 +102,10 @@ function respawn(){
 	console.log("moster is killed, score "+currentScore);
 	
 	console.log("restart animation");
-	document.getElementById("box").style.marginLeft = "0px"
-	document.getElementById("box").className="alive";
-	 $("#box").animate({
+	monster.style.marginLeft = "0px"
+	monster.className="alive";
+	// $("#dot")
+	monster.animate({
             marginLeft: "90%"
         }, {
             duration: getDuration(),
@@ -115,6 +130,28 @@ function handleFileSelect(evt) {
     }
 	console.log(mImages);
     document.getElementById('files').addEventListener('change', handleFileSelect, false);
+
+}
+
+
+
+function readURL(input){
+   console.log("readUrl");
+   document.getElementById("box").className="dead";
+   document.getElementById("box").id="deadMonster";
+   var image = document.getElementById("monster");
+   image.id = "box";
+   if (input.files && input.files[0]) {
+      console.log("reader");
+      var reader = new FileReader();
+
+      reader.onload = function(e) {
+         $('#box').attr('src', e.target.result);
+      };
+
+      reader.readAsDataURL(input.files[0]); // convert to base64 string
+   }
+
 
 }
 

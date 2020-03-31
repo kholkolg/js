@@ -11,19 +11,25 @@
 
 </head>
 <body>
+<div id="screen">
 
+<div class="dot" id="dot1" style="dead">
+<div>
+    <img id="monster1"/>
+</div>
+	</div>
+<div class="dot" id="dot2" style="dead">
 
-<div id="box" style="background:#98bf21;height:100px;width:100px;margin:6px;dead"></div>
-	
-<br/>
+<div>
+    <img id="monster2"/>
+</div>	</div>
+
 <input type="button" id="btnStart" onclick=newGame() value="New game" />
 <input type="button" id="btnStop" onclick=stopGame() value="  ||  " />
 <output id="currentScore"></output>
-<br/>
-<input type="file" id="files" name="files[]" multiple />
+	</div>
+<input type="file" id="files" name="files[]" onchange="readURL(this)"  multiple />
 <output id="list"></output>
 </body>
 </html>
-<script>
 
-</script>

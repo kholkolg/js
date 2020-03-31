@@ -2,6 +2,13 @@ body{
     background:#ffffef;
 
 }
+#screen{
+  display: flex;
+  flex-direction:column;
+  flex-wrap: nowrap;
+  justify-content:space-evenly;
+  align-items:flex-start;
+}	
 #edge{
     width:200px;
     height:200px;
@@ -9,33 +16,33 @@ body{
     padding:5px;
 }
 .box{
-
-    width:40px;
-    height:40px;
+	height:40px;
+	width:40px;
     border:1px solid #a82244;
 	display:none;
 }
 .dot {
-    height: 25px;
-    width: 25px;
+    height: 100px;
+    width: 100px;
     background-color: #bbb;
     border-radius: 50%;
-    display: inline-block;
-}
-#b1{
-    background-color: #f8a2a4;
+	flex-basis: 100px;
+
+
 }
 
-#b2{
-    background-color: #a2f8a4;
-}
-
-#b3{
-    background-color: #5599fd;;
 }
 .alive{
+	height: 100px;
+    width: 100px;
+    background-color: #bbb;
+    border-radius: 50%;
+	flex-basis: 100px
+	align-self:flex-start;
     
 }
 .dead{
     display: none;
 }
+
+
