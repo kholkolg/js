@@ -42,7 +42,7 @@ function newGame() {
 	
 	//function that respawns monster at start location when it's clicked
 	$(".dot").click(function(){
-		console.log("click dot");
+		console.log("clicked "+this.id);
 		respawn(this.id);
 		}); 
 	//make it visible at initial location
@@ -106,22 +106,20 @@ function animateMonster(monster){
         });
 }
 
-
 function respawn(monster){
 	console.log("respawn " +monster);
 	//stop animation, make monster invisible
 	//monster.className="dead";
-	$(monster).stop()
+	$(monster).stop();
 	//$("#box").stop();
 	currentScore += 1;//??? it's incremented not by one, but by num of game after page reload
-	
-	
+		
 	document.getElementById('currentScore').innerHTML = '<ul>' + currentScore + '</ul>';
 	console.log("moster is killed, score "+currentScore);
 	
 
 
-	document.getElementById(monster).style.marginLeft = "0px"
+	document.getElementById(monster).style.marginLeft = "0%"
 	console.log("restart animation ", monster);
 	animateMonster(monster);
 	
