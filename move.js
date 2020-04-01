@@ -123,20 +123,43 @@ function respawn(monsterId){
 
 
 function readURL(input){
-   console.log("readUrl");
-   stopMonsters();
-   var image = document.getElementById("monster");
-   image.id = "box";
-   if (input.files && input.files[0]) {
-      console.log("reader");
-      var reader = new FileReader();
-
-      reader.onload = function(e) {
-         $('#box').attr('src', e.target.result);
+    console.log("readUrl");
+    stopMonsters();
+	var files = input.files;
+	var numMonsters = files.length;
+	console.log("num pictures "+numMonsters);
+	if (files) {
+       console.log(files);
+       var reader = new FileReader();
+       reader.onload = function(e) {
+		   console.log('reader onload');
+       $('#dot').attr('src', e.target.result);
       };
+	var imageInd = Math.floor(Math.random()*numMonsters);
+    reader.readAsDataURL(input.files[imageInd]);
+	console.log("image " + input.files[imageInd]);
+	}
+	else {
+		console.log('Default monster image');
+		//return default monster;
+		//if no files are selected, choose default monster img
+		//mImg = readImage('default_monster.png');
+	}
+	
+	
+//   var image = document.getElementById("monster");
+//   image.id = "box";
+//   if (input.files && input.files[0]) {
+ //     console.log("reader");
+//      var reader = new FileReader();
 
-      reader.readAsDataURL(input.files[0]); // convert to base64 string
-   }
+//      reader.onload = function(e) {
+//         $('#box').attr('src', e.target.result);
+//      };
+
+//      reader.readAsDataURL(input.files[0]); // convert to base64 string
+//   }
+	
 }
 
 
