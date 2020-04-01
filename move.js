@@ -1,99 +1,98 @@
-//always working (starts directly w/o button)
-//$(function animate() {
-//    console.log("in function");
-//	$("#box").click(function(){
-//		respawn();
-//		}); 
-//    $("#box").animate({
-//		marginLeft: "90%"
-//        }, {
-//           duration: 10000,
-//           easing: "linear",
-//           complete: function () {
-//				gameover();
-//            }
-//        });
-//});
-
-
+//global variables
 var mImg = '';
 var mImages = [];
 var currentScore = 0;
+var state = 0;
 
 
 // game functions
 function newGame() {
+	console.log("newGame, state "+ state);
 	
-	//shows monster at it's start position, and starts animation
-    console.log("new game started");
+	//check if game was running (removes listeners)
+	if (state == 1){
+		stopMonsters();
+	}
 	currentScore = 0;
+	
+	//TODO image for monster
 	//var mImg = chooseMonsterImg();
 	//console.log("chosen monster: "+mImg);
-	
-	
-//	var dots = document.getElementsByClassName("dot");
-//	console.log("num dots: " + dots.length);
-//	for (i = 0; i < dots.length; i++) {
-//		console.log(dots[i]);
-//  		dots[i].style.marginLeft = "0px";
-	//	dots[i].className ="alive";
-//	} 
-	
-	
-	//function that respawns monster at start location when it's clicked
-	$(".dot").click(function(){
-		console.log("clicked "+this.id);
-		respawn(this.id);
-		}); 
-	//make it visible at initial location
-//	document.getElementById("dot").style.marginLeft = "0px"
-  //  document.getElementById("dot").className="alive";
 
-	// scores??
-	// independent start by id with different speed
-	document.getElementById('currentScore').innerHTML = '<ul>' + currentScore + '</ul>';
+	postScore();
+	state = 1;
+	//put monsters to the left border
+	putMonstersToStart();
 	//start animation
+	animateMonsters();
+}
+
+function postScore(){
+	// outputs current score
+	document.getElementById('currentScore').innerHTML = '<ul>' + currentScore + '</ul>';
+}
+
+function pauseResumeGame(){
+	//console.log("pauseResume state "+ state);
+	if (state == 1){
+		stopMonsters();	
+		state = 2;
+	}
+	else if (state == 2){
+		animateMonsters();
+		state = 1;
+	}
+}
+
+function putMonstersToStart(){
 	var dots = document.getElementsByClassName("dot");
-	console.log("num dots: " + dots.length);
+	//console.log("put to start, num dots: " + dots.length);
 	for (i = 0; i < dots.length; i++) {
-		console.log(dots[i]);
+		//console.log(dots[i]);
 		dots[i].style.marginLeft = "0px";
+	}
+} 
+
+function animateMonsters(){
+	var dots = document.getElementsByClassName("dot");
+	for (i = 0; i < dots.length; i++) {
 		animateMonster(dots[i]);
-
-	} 
-	
-
+	}
 }
-
-
-function stopGame(){ 
-	//TODO add two states pressed-unpressed to pause-unpause the game
-	console.log('stopGame');
-	$(".dot").stop();
-	//var box = document.getElementById("box").className="dead";
-	
-
-}
-
 
 function gameover(){
-	stopGame();
-    console.log("GAME OVER!");
+	console.log("GAME OVER!");
+	stopMonsters();
+	state = 0;
+
 	document.getElementById('currentScore').innerHTML = '<ul> GAME OVER!</ul> <ul> Your score: '+currentScore + '</ul>';
 	var thisScore = currentScore;
+	
 	//save it to highscores
-	currentScore = 0;
+	// saveScore(thisScore);
+
 }
+
+function stopMonsters(){ 
+	//stop all monsters and detach listeners
+	$(".dot").stop();
+	$(".dot").off();
+}
+
 
 function getDuration(){
-	var dur = Math.round(40000*Math.random());
-	console.log("duration: " + dur);
-	return dur;
+	//Get some random animation duration for monster
+	return Math.round(400000*Math.random()/(currentScore+1));
 }
 
+
 function animateMonster(monster){
-	var speed = getDuration();
 	console.log('animateMonster ', monster);
+	
+	//attach listener
+	$(monster).click(function(){
+	respawn(this.id);
+		}); 
 
 	$(monster).animate({
 		marginLeft: "90%"
@@ -106,43 +105,26 @@ function animateMonster(monster){
         });
 }
 
-function respawn(monster){
-	console.log("respawn " +monster);
+function respawn(monsterId){
+	console.log("respawn " + monsterId);
+	//console.log(document.getElementById(monsterId));
+	var monster =  document.getElementById(monsterId);
+
 	//stop animation, make monster invisible
-	//monster.className="dead";
 	$(monster).stop();
-	//$("#box").stop();
-	currentScore += 1;//??? it's incremented not by one, but by num of game after page reload
-		
+	$(monster).off();
+
+	currentScore += 1;
 	document.getElementById('currentScore').innerHTML = '<ul>' + currentScore + '</ul>';
-	console.log("moster is killed, score "+currentScore);
 	
-
-
-	document.getElementById(monster).style.marginLeft = "0%"
-	console.log("restart animation ", monster);
+	monster.style.marginLeft = "0px"; 
 	animateMonster(monster);
-	
-	//document.getElementById(monster).className="alive";
-	// $("#dot")
-//	$(monster).animate({
- //           marginLeft: "90%"
- //       }, {
- //           duration: getDuration(),
- //           easing: "linear",
- //           complete: function () {
-//				// 
-//				gameover();
- //           }
- //       });
 }
 
 
 function readURL(input){
    console.log("readUrl");
-	// FIXME dot class 
-   document.getElementById("box").className="dead";
-   document.getElementById("box").id="deadMonster";
+   stopMonsters();
    var image = document.getElementById("monster");
    image.id = "box";
    if (input.files && input.files[0]) {
@@ -155,9 +137,8 @@ function readURL(input){
 
       reader.readAsDataURL(input.files[0]); // convert to base64 string
    }
-
-
 }
+
 
 // Not used, should be calle in new game or animate
 // depending on if monster is chosen once for the whole game
@@ -191,4 +172,38 @@ function chooseMonsterImg(){
 	//document.getElementById("box").break();
 	//document.getElementById("box").className="invisible";
 //}
+
+
+//always working (starts directly w/o button)
+//$(function animate() {
+//    console.log("in function");
+//	$("#box").click(function(){
+//		respawn();
+//		}); 
+//    $("#box").animate({
+//		marginLeft: "90%"
+//        }, {
+//           duration: 10000,
+//           easing: "linear",
+//           complete: function () {
+//				gameover();
+//            }
+//        });
+//});
+	
+	
+//	var dots = document.getElementsByClassName("dot");
+//	console.log("num dots: " + dots.length);
+//	for (i = 0; i < dots.length; i++) {
+//		console.log(dots[i]);
+//  		dots[i].style.marginLeft = "0px";
+	//	dots[i].className ="alive";
+//	} 
+	
+	
+	//function that respawns monster at start location when it's clicked
+	
+	//make it visible at initial location
+//	document.getElementById("dot").style.marginLeft = "0px"
+  //  document.getElementById("dot").className="alive";
 

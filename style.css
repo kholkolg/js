@@ -2,6 +2,15 @@ body{
     background:#ffffef;
 
 }
+
+#buttons{
+  display: flex;
+  flex-direction:row;
+  flex-wrap: nowrap;
+  justify-content:space-evenly;
+  align-items:flex-start;
+}
+
 #screen{
   display: flex;
   flex-direction:column;
@@ -15,19 +24,11 @@ body{
     border:1px solid #3377af;
     padding:5px;
 }
-.box{
-	height:40px;
-	width:40px;
-    border:1px solid #a82244;
-	display:none;
-}
 .dot {
     height: 100px;
     width: 100px;
     background-color: #bbb;
     border-radius: 50%;
-
-
 }
 
 }
@@ -36,8 +37,6 @@ body{
     width: 100px;
     background-color: #bbb;
     border-radius: 50%;
-	flex-basis: 100px
-	align-self:flex-start;
     
 }
 .dead{
