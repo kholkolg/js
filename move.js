@@ -136,18 +136,6 @@ function readScore(input){
 
 }}
 
-function makeTextFile(text) {
-    // If we are replacing a previously generated file we need to
-    // manually revoke the object URL to avoid memory leaks.
-    if (textFile !== null) {
-      window.URL.revokeObjectURL(textFile);
-    }
-
-    textFile = window.URL.createObjectURL(data);
-
-    return textFile;
-  };
-
 
 function saveScore(score){
 	console.log("writeScore  " + score);
