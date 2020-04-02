@@ -15,11 +15,16 @@
 		<!-- Control buttons -->
 		<div id = "buttons">
 			
+			<input type="file" id="scoreFile" name="files[]" onchange="readScore(this)" />
+			<a download="score.txt" id="link" style="display: none">Download score file</a>
+			
 			<input type="button" id="btnStart" onclick=newGame() value="New game" />
 			<input type="button" id="btnPause" onclick=pauseResumeGame() value="||" />
 				
 			<input type="file" id="files" name="files[]" onchange="readURL(this)"  multiple />
 			<output id="list"></output>
+			
+		
 			
 			<output id="currentScore"></output>
 		</div>

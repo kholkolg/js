@@ -3,7 +3,9 @@ var mImg = '';
 var mImages = [];
 var currentScore = 0;
 var state = 0;
-
+var scoreFile = null;
+var scores = null;
+var nickname = prompt("Enter your name");
 
 // game functions
 function newGame() {
@@ -14,10 +16,6 @@ function newGame() {
 		stopMonsters();
 	}
 	currentScore = 0;
-	
-	//TODO image for monster
-	//var mImg = chooseMonsterImg();
-	//console.log("chosen monster: "+mImg);
 
 	postScore();
 	state = 1;
@@ -46,10 +44,8 @@ function pauseResumeGame(){
 
 function putMonstersToStart(){
 	var dots = document.getElementsByClassName("dot");
-	//console.log("put to start, num dots: " + dots.length);
 	for (i = 0; i < dots.length; i++) {
-		//console.log(dots[i]);
-		dots[i].style.marginLeft = "0px";
+			dots[i].style.marginLeft = "0px";
 	}
 } 
 
@@ -66,10 +62,8 @@ function gameover(){
 	state = 0;
 
 	document.getElementById('currentScore').innerHTML = '<ul> GAME OVER!</ul> <ul> Your score: '+currentScore + '</ul>';
-	var thisScore = currentScore;
-	
 	//save it to highscores
-	// saveScore(thisScore);
+	saveScore(currentScore);
 
 }
 
@@ -121,6 +115,63 @@ function respawn(monsterId){
 	animateMonster(monster);
 }
 
+function readScore(input){
+    console.log("readScore " + input);
+		
+	if (input.files && input.files[0]) {
+		scoreFile =  input.files[0];
+		console.log('scoreFile '+ scoreFile);
+		
+        var reader = new FileReader();
+	    reader.onload = function(evt) {
+	    	console.log('reader onload');
+			scores = evt.target.result;
+			console.log("scores  " + scores);
+	  };
+	reader.readAsText(input.files[0]);
+ 
+	// if you want to put the highscores somewhere on the screen
+	// the text is in variable scores
+	
+
+}}
+
+function makeTextFile(text) {
+    // If we are replacing a previously generated file we need to
+    // manually revoke the object URL to avoid memory leaks.
+    if (textFile !== null) {
+      window.URL.revokeObjectURL(textFile);
+    }
+
+    textFile = window.URL.createObjectURL(data);
+
+    return textFile;
+  };
+
+
+function saveScore(score){
+	console.log("writeScore  " + score);
+	
+	if(scoreFile){
+		console.log('score file ' + scoreFile);
+	 	var string = nickname + ' ' + score + '\n';
+		var text = scores + string;
+		console.log(text);
+		
+		var data = new Blob([text], {type: 'text/plain'});
+
+		// If we are replacing a previously generated file we need to
+		// manually revoke the object URL to avoid memory leaks.
+        window.URL.revokeObjectURL(scoreFile);
+  		scoreFile = window.URL.createObjectURL(data);
+        var link = document.getElementById('link');
+        link.href = scoreFile;
+		link.style.display = 'block';
+	}
+	else {
+		console.log("no score file is selected");
+	}
+}
 
 function readURL(input){
     console.log("readUrl");
